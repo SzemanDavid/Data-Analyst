@@ -27,7 +27,7 @@ sns.histplot(sales_data['Sales'], kde=True)
 plt.title('Sales Distribution')
 plt.show()
 
-######## adat kezelések ######
+############################### adat kezelések ######
 # 2. Adattisztítás
 data['Order Date'] = pd.to_datetime(data['Order Date'], errors='coerce')
 data['Total Revenue'] = data['Quantity Ordered'] * data['Price Each']
