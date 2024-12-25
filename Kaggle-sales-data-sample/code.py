@@ -27,6 +27,39 @@ sns.histplot(sales_data['Sales'], kde=True)
 plt.title('Sales Distribution')
 plt.show()
 
+######## adat kezelések ######
+# 2. Adattisztítás
+data['Order Date'] = pd.to_datetime(data['Order Date'], errors='coerce')
+data['Total Revenue'] = data['Quantity Ordered'] * data['Price Each']
+
+# 3. Elemzések
+# Összbevétel
+total_revenue = data['Total Revenue'].sum()
+print(f"Összbevétel: {total_revenue}")
+
+# Legjobb termékek
+top_products = data.groupby('Product')['Total Revenue'].sum().sort_values(ascending=False)
+print(top_products.head())
+
+# Időbeli trendek
+data['Month'] = data['Order Date'].dt.month
+monthly_revenue = data.groupby('Month')['Total Revenue'].sum()
+print(monthly_revenue)
+
+# 4. Vizualizáció
+# Havi bevétel
+monthly_revenue.plot(kind='bar', title='Havi Bevétel')
+plt.show()
+
+# Legjobb termékek vizualizáció
+top_products.head(10).plot(kind='bar', title='Top 10 Termékek')
+plt.show()
+
+# 5. Riport exportálása
+data.to_excel('sales_report.xlsx', index=False)
+
+#####################################################
+
 
 
 # Gépi tanulás modell választás, tanítás és tesztelés
